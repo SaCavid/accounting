@@ -1,0 +1,10 @@
+build:
+	GOOS=linux GOARCH=amd64 go build -o bin/main customer.go
+
+deploy:
+	GOOS=linux GOARCH=amd64 go build -o bin/main customer.go
+	zip bin/customer bin/main
+	aws lambda update-function-code --function-name Customer --zip-file fileb://bin/customer.zip
+
+run:
+	go run customer.go
